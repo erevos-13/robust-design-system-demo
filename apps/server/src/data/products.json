@@ -1,0 +1,82 @@
+[
+    {
+        "id": 1,
+        "name": "Wireless Mouse",
+        "category": "Accessories",
+        "price": 24.99,
+        "stock": 120,
+        "rating": 4.5
+    },
+    {
+        "id": 2,
+        "name": "Mechanical Keyboard",
+        "category": "Accessories",
+        "price": 89.5,
+        "stock": 60,
+        "rating": 4.8
+    },
+    {
+        "id": 3,
+        "name": "27-inch Monitor",
+        "category": "Electronics",
+        "price": 199.99,
+        "stock": 25,
+        "rating": 4.3
+    },
+    {
+        "id": 4,
+        "name": "USB-C Hub",
+        "category": "Electronics",
+        "price": 39.0,
+        "stock": 75,
+        "rating": 4.2
+    },
+    {
+        "id": 5,
+        "name": "Laptop Stand",
+        "category": "Office",
+        "price": 29.99,
+        "stock": 180,
+        "rating": 4.6
+    },
+    {
+        "id": 6,
+        "name": "Noise-Cancelling Headphones",
+        "category": "Audio",
+        "price": 159.0,
+        "stock": 40,
+        "rating": 4.9
+    },
+    {
+        "id": 7,
+        "name": "Webcam HD 1080p",
+        "category": "Electronics",
+        "price": 59.99,
+        "stock": 52,
+        "rating": 4.1
+    },
+    {
+        "id": 8,
+        "name": "Desk Lamp",
+        "category": "Office",
+        "price": 22.5,
+        "stock": 130,
+        "rating": 4.4
+    },
+    {
+        "id": 9,
+        "name": "Ergonomic Chair",
+        "category": "Office",
+        "price": 210.0,
+        "stock": 15,
+        "rating": 4.7
+    },
+    {
+        "id": 10,
+        "name": "Smartphone Stand",
+        "category": "Accessories",
+        "price": 14.99,
+        "stock": 300,
+        "rating": 4.5
+    }
+]
