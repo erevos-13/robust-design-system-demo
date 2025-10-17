@@ -1,32 +1,9 @@
-import path from 'path'
-import fs from 'fs/promises'
-import fsSync from 'fs'
+import { IDbResult } from './../../../packages/share-types/server-response.model'
+import { IProduct } from './../../../packages/share-types/product.model'
+import * as path from 'path'
+import * as fs from 'fs/promises'
+import * as fsSync from 'fs'
 
-/**
- * Product interface following robust design system patterns
- */
-export interface IProduct {
-	id: number
-	name: string
-	category: string
-	price: number
-	stock: number
-	rating: number
-}
-
-/**
- * Database operation result interface
- */
-export interface IDbResult<T = any> {
-	success: boolean
-	data?: T
-	error?: string
-	message: string
-}
-
-/**
- * JSON Database class for CRUD operations
- */
 class JsonDatabase {
 	private dataPath: string
 	private dataDir: string
@@ -115,16 +92,16 @@ class JsonDatabase {
 	 * Get product by ID
 	 */
 	async getProductById(id: number): Promise<IDbResult<IProduct>> {
-		const result = await this.readProducts()
-		if (!result.success || !result.data) {
+		const { data, success, error } = await this.readProducts()
+		if (!success || !data) {
 			return {
 				success: false,
-				error: result.error || 'Unknown error',
+				error: error || 'Unknown error',
 				message: 'Failed to retrieve product',
 			}
 		}
 
-		const product = result.data.find((p) => p.id === id)
+		const product = data.find((p) => p.id === id)
 		if (!product) {
 			return {
 				success: false,
@@ -242,7 +219,7 @@ class JsonDatabase {
 			}
 		}
 
-		const products = result.data
+		const products: IProduct[] = result.data
 		const productIndex = products.findIndex((p) => p.id === id)
 
 		if (productIndex === -1) {

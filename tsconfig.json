@@ -5,19 +5,21 @@
 		// "rootDir": "./src",
 		// "outDir": "./dist",
 
-		// Environment Settings
-		// See also https://aka.ms/tsconfig/module
-		"target": "ESNext",
 		"module": "NodeNext",
-		// For nodejs:
-		"lib": ["esnext"],
-		"types": ["node"],
-		// and npm install -D @types/node
-
+		"moduleResolution": "NodeNext",
+		"target": "ES2022",
 		// Other Outputs
 		"sourceMap": true,
 		"declaration": true,
 		"declarationMap": true,
+
+		"baseUrl": ".",
+		"paths": {
+			"@shared-types/*": ["packages/shared-types/src/*"],
+			"@design-tokens/*": ["packages/design-tokens/src/*"],
+			"@ui-components/*": ["packages/ui-components/src/*"],
+			"@/*": ["src/*"]
+		},
 
 		// Stricter Typechecking Options
 		"noUncheckedIndexedAccess": true,
@@ -40,12 +42,6 @@
 		"moduleDetection": "force",
 		"skipLibCheck": true
 	},
-	"include": [
-		"packages/**/*.ts",
-		"packages/**/*.tsx",
-		"apps/**/*.ts",
-		"apps/**/*.tsx",
-		"tools/**/*.ts"
-	],
+	"include": ["packages/**/*.ts", "packages/**/*.tsx", "apps/**/*.ts", "apps/**/*.tsx"],
 	"exclude": ["node_modules", "dist", "**/node_modules", "**/dist"]
 }

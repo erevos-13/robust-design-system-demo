@@ -1,21 +1,24 @@
-import { useState } from 'react'
 import './App.css'
+import { RootLayout } from './components'
+import ListProducts from './components/ListProducts'
+import useFetch from './hooks/useFetch'
 
-function App() {
-	const [count, setCount] = useState(0)
+// Main content component
+const MainContent = () => {
+	const { data, error, loading } = useFetch<any[]>('/api/products')
 
 	return (
-		<>
-			<div></div>
-			<h1>Vite + React</h1>
-			<div className="card">
-				<button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-				<p>
-					Edit <code>src/App.tsx</code> and save to test HMR
-				</p>
-			</div>
-			<p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-		</>
+		<div>
+			<ListProducts items={data} />
+		</div>
+	)
+}
+
+function App() {
+	return (
+		<RootLayout initialTheme="light">
+			<MainContent />
+		</RootLayout>
 	)
 }
 
