@@ -1,43 +1,21 @@
 {
 	// Visit https://aka.ms/tsconfig to read more about this file
 	"compilerOptions": {
-		// File Layout
-		// "rootDir": "./src",
-		// "outDir": "./dist",
-		"baseUrl": ".",
-		"paths": {
-			"@/*": ["apps/web/src/*"]
-		},
-
+		"target": "ESNext",
 		"module": "NodeNext",
 		"moduleResolution": "NodeNext",
-		"target": "ES2022",
-		// Other Outputs
-		"sourceMap": true,
-		"declaration": true,
-		"declarationMap": true,
-
-		// Stricter Typechecking Options
-		"noUncheckedIndexedAccess": true,
-		"exactOptionalPropertyTypes": true,
-
-		// Style Options
-		// "noImplicitReturns": true,
-		// "noImplicitOverride": true,
-		// "noUnusedLocals": true,
-		// "noUnusedParameters": true,
-		// "noFallthroughCasesInSwitch": true,
-		// "noPropertyAccessFromIndexSignature": true,
-
-		// Recommended Options
+		"noEmit": true,
+		"noImplicitAny": true,
+		"allowJs": true,
 		"strict": true,
-		"jsx": "react-jsx",
-		"verbatimModuleSyntax": true,
-		"isolatedModules": true,
-		"noUncheckedSideEffectImports": true,
-		"moduleDetection": "force",
-		"skipLibCheck": true
+		"allowSyntheticDefaultImports": true,
+		"noUncheckedSideEffectImports": true
 	},
-	"include": ["packages/**/*.ts", "packages/**/*.tsx", "apps/**/*.ts", "apps/**/*.tsx"],
+	"include": [
+		"packages/**/src/**/*.ts",
+		"packages/**/src/**/*.tsx",
+		"apps/**/*.ts",
+		"apps/**/*.tsx"
+	],
 	"exclude": ["node_modules", "dist", "**/node_modules", "**/dist"]
 }

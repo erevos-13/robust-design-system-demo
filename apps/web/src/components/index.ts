@@ -4,7 +4,7 @@ export { ThemeProvider } from './ThemeProvider'
 export { Button } from './Buttons'
 
 // Export themes and types
-export { lightTheme, darkTheme } from './themes'
+export { lightTheme, darkTheme } from '../../../../packages/design-tokens/src/themes.js'
 export type {
 	ITheme,
 	IThemeContext,
@@ -12,4 +12,4 @@ export type {
 	IThemeProviderProps,
 	IRootLayoutProps,
 	ThemeMode,
-} from './layout.types'
+} from '../../../../packages/design-tokens/src/layout.types.js'

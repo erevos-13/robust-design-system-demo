@@ -1,2 +1,2 @@
-export * from './product.model.ts'
-export * from './server-response.model.ts'
+export * from './product.model'
+export * from './server-response.model'

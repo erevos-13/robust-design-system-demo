@@ -140,6 +140,55 @@ importers:
         specifier: ^7.1.7
         version: 7.1.9(@types/node@24.7.2)(jiti@2.6.1)(lightningcss@1.30.1)(tsx@4.20.6)
 
+  packages/design-tokens:
+    dependencies:
+      cors:
+        specifier: ^2.8.5
+        version: 2.8.5
+      express:
+        specifier: ^5.1.0
+        version: 5.1.0
+    devDependencies:
+      '@eslint/js':
+        specifier: ^9.28.0
+        version: 9.37.0
+      '@vitest/coverage-v8':
+        specifier: ^3.2.3
+        version: 3.2.4(vitest@3.2.4)
+      '@vitest/ui':
+        specifier: ^3.2.3
+        version: 3.2.4(vitest@3.2.4)
+      concurrently:
+        specifier: ^9.1.2
+        version: 9.2.1
+      daisyui:
+        specifier: ^5.0.43
+        version: 5.3.7
+      eslint:
+        specifier: ^9.28.0
+        version: 9.37.0(jiti@2.6.1)
+      jsdom:
+        specifier: ^26.1.0
+        version: 26.1.0
+      prettier:
+        specifier: ^3.5.3
+        version: 3.6.2
+      prettier-plugin-svelte:
+        specifier: ^3.4.0
+        version: 3.4.0(prettier@3.6.2)(svelte@5.40.2)
+      tsx:
+        specifier: ^4.20.0
+        version: 4.20.6
+      typescript:
+        specifier: ~5.8.3
+        version: 5.8.3
+      typescript-eslint:
+        specifier: ^8.34.0
+        version: 8.46.0(eslint@9.37.0(jiti@2.6.1))(typescript@5.8.3)
+      vitest:
+        specifier: ^3.2.3
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.7.2)(@vitest/ui@3.2.4)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.1)(tsx@4.20.6)
+
   packages/share-types:
     dependencies:
       cors:
