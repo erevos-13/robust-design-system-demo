@@ -1,16 +1,13 @@
+import type { IProduct } from '@demo/share-types'
 import React from 'react'
 
-interface IListProductsProps<T> {
-	items: T[]
-	renderItem: (item: T, index: number) => React.ReactNode
+interface IListProductsProps {
+	items: IProduct[]
+	renderItem: (item: IProduct, index: number) => React.ReactNode
 	className?: string
 }
 
-export function ListProducts<T>({
-	items,
-	renderItem,
-	className = '',
-}: IListProductsProps<T>) {
+export function ListProducts({ items, renderItem, className = '' }: IListProductsProps) {
 	return (
 		<div className={`space-y-2 ${className}`}>
 			{items.map((item, index) => (

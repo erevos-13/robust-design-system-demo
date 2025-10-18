@@ -71,9 +71,8 @@ export function useFetch<T>(
 			if (!response.ok) {
 				throw new Error(`Request failed with status ${response.status}`)
 			}
-
-			const jsonData = (await response.json()) as T
-			setData(jsonData)
+			const { data } = await response.json()
+			setData(data)
 		} catch (err) {
 			setError(err as Error)
 			setData(null)

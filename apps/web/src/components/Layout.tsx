@@ -1,6 +1,6 @@
 import React from 'react'
-import { useTheme } from './useTheme.js'
-import { ThemeProvider } from './ThemeProvider.js'
+import { ThemeProvider } from './ThemeProvider'
+import { useTheme } from '../hooks'
 
 interface ISimpleLayoutProps {
 	children: React.ReactNode
@@ -8,45 +8,26 @@ interface ISimpleLayoutProps {
 }
 
 /**
- * Simple layout component that only provides theme management with a toggle button
+ * Simple layout component that provides theme management with a toggle button
+ * and centers content in the viewport using Tailwind CSS
  */
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 	const { theme, toggleTheme } = useTheme()
 
-	const layoutStyles = {
+	const customStyles = {
 		backgroundColor: theme.colors.background,
 		color: theme.colors.text,
 		fontFamily: theme.typography.fontFamily,
-		minHeight: '100vh',
-		transition: 'background-color 0.2s ease, color 0.2s ease',
-		padding: theme.spacing.lg,
-	}
-
-	const themeToggleStyles = {
-		position: 'fixed' as const,
-		top: theme.spacing.md,
-		right: theme.spacing.md,
-		backgroundColor: theme.colors.primary,
-		color: theme.colors.background,
-		border: 'none',
-		borderRadius: '50%',
-		width: '48px',
-		height: '48px',
-		cursor: 'pointer',
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'center',
-		fontSize: '1.25rem',
-		transition: 'background-color 0.2s ease',
-		zIndex: 1000,
-		boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
 	}
 
 	return (
-		<div style={layoutStyles}>
-			{/* Theme Toggle Button with Icon */}
+		<div
+			className="min-h-screen w-full flex flex-col items-center justify-center p-8 transition-colors duration-200 "
+			style={customStyles}
+		>
+			{/* Theme Toggle Button with Tailwind Classes */}
 			<button
-				style={themeToggleStyles}
+				className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-blue-600 hover:bg-blue-700 text-white border-none rounded-full w-12 h-12 cursor-pointer flex items-center justify-center text-xl transition-colors duration-200 z-50 shadow-lg hover:shadow-xl"
 				onClick={toggleTheme}
 				aria-label={`Switch to ${theme.mode === 'light' ? 'dark' : 'light'} theme`}
 				title={`Switch to ${theme.mode === 'light' ? 'dark' : 'light'} theme`}
@@ -54,8 +35,8 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 				{theme.mode === 'light' ? '🌙' : '☀️'}
 			</button>
 
-			{/* Main Content */}
-			{children}
+			{/* Main Content - Centered */}
+			<main className="max-w-3xl w-full text-center">{children}</main>
 		</div>
 	)
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import type { ThemeMode, IThemeProviderProps } from './layout.types'
 import { lightTheme, darkTheme } from './themes'
-import { ThemeContext } from './useTheme'
+import { ThemeContext } from '../hooks'
 
 /**
  * Theme provider component that manages theme state

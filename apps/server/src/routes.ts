@@ -5,7 +5,7 @@ const router: Router = Router()
 
 router.get('/products', async (req, res) => {
 	const products = await db.readProducts()
-	res.json({ data: products })
+	res.json(products)
 })
 
 router.get('/products/:id', async (req, res) => {

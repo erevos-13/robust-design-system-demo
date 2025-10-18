@@ -1,8 +1,7 @@
-import { IDbResult } from './../../../packages/share-types/server-response.model'
-import { IProduct } from './../../../packages/share-types/product.model'
 import * as path from 'path'
 import * as fs from 'fs/promises'
 import * as fsSync from 'fs'
+import type { IDbResult, IProduct } from '@demo/share-types'
 
 class JsonDatabase {
 	private dataPath: string
