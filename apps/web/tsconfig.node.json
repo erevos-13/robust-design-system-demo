@@ -12,7 +12,11 @@
 		"allowImportingTsExtensions": true,
 		"verbatimModuleSyntax": true,
 		"moduleDetection": "force",
-		"noEmit": true,
+		"emitDeclarationOnly": true,
+		"declaration": true,
+		"declarationMap": true,
+		"outDir": "./node_modules/.tmp",
+		"composite": true,
 
 		/* Linting */
 		"strict": true,
@@ -20,8 +24,7 @@
 		"noUnusedParameters": true,
 		"erasableSyntaxOnly": true,
 		"noFallthroughCasesInSwitch": true,
-		"noUncheckedSideEffectImports": true,
-		"composite": true
+		"noUncheckedSideEffectImports": true
 	},
 	"include": ["vite.config.ts"]
 }
