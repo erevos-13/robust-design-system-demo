@@ -15,4 +15,5 @@ export interface IProduct {
 	price: number
 	stock: number
 	rating: number
+	imageUrl: string
 }

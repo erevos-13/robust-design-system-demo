@@ -3,6 +3,7 @@ import './App.css'
 import { RootLayout } from './components'
 import ListProducts from './components/ListProducts'
 import useFetch from './hooks/useFetch'
+import { Product } from './components/Product'
 
 // Main content component
 const MainContent = () => {
@@ -29,7 +30,7 @@ const MainContent = () => {
 			<ListProducts
 				items={data}
 				renderItem={(item) => {
-					return <div>{item.name}</div>
+					return <Product {...item} />
 				}}
 			/>
 		</div>

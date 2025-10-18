@@ -5,7 +5,8 @@
         "category": "Accessories",
         "price": 24.99,
         "stock": 120,
-        "rating": 4.5
+        "rating": 4.5,
+        "imageUrl": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&h=400&fit=crop"
     },
     {
         "id": 2,
@@ -13,7 +14,8 @@
         "category": "Accessories",
         "price": 89.5,
         "stock": 60,
-        "rating": 4.8
+        "rating": 4.8,
+        "imageUrl": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=400&h=400&fit=crop"
     },
     {
         "id": 3,
@@ -21,7 +23,8 @@
         "category": "Electronics",
         "price": 199.99,
         "stock": 25,
-        "rating": 4.3
+        "rating": 4.3,
+        "imageUrl": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400&h=400&fit=crop"
     },
     {
         "id": 4,
@@ -29,7 +32,8 @@
         "category": "Electronics",
         "price": 39.0,
         "stock": 75,
-        "rating": 4.2
+        "rating": 4.2,
+        "imageUrl": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=400&h=400&fit=crop"
     },
     {
         "id": 5,
@@ -37,7 +41,8 @@
         "category": "Office",
         "price": 29.99,
         "stock": 180,
-        "rating": 4.6
+        "rating": 4.6,
+        "imageUrl": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&h=400&fit=crop"
     },
     {
         "id": 6,
@@ -45,7 +50,8 @@
         "category": "Audio",
         "price": 159.0,
         "stock": 40,
-        "rating": 4.9
+        "rating": 4.9,
+        "imageUrl": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop"
     },
     {
         "id": 7,
@@ -53,7 +59,8 @@
         "category": "Electronics",
         "price": 59.99,
         "stock": 52,
-        "rating": 4.1
+        "rating": 4.1,
+        "imageUrl": "https://images.unsplash.com/photo-1589739900243-5b498e1e0b83?w=400&h=400&fit=crop"
     },
     {
         "id": 8,
@@ -61,7 +68,8 @@
         "category": "Office",
         "price": 22.5,
         "stock": 130,
-        "rating": 4.4
+        "rating": 4.4,
+        "imageUrl": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=400&h=400&fit=crop"
     },
     {
         "id": 9,
@@ -69,7 +77,8 @@
         "category": "Office",
         "price": 210.0,
         "stock": 15,
-        "rating": 4.7
+        "rating": 4.7,
+        "imageUrl": "https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=400&h=400&fit=crop"
     },
     {
         "id": 10,
@@ -77,6 +86,7 @@
         "category": "Accessories",
         "price": 14.99,
         "stock": 300,
-        "rating": 4.5
+        "rating": 4.5,
+        "imageUrl": "https://images.unsplash.com/photo-1556656793-08538906a9f8?w=400&h=400&fit=crop"
     }
 ]
