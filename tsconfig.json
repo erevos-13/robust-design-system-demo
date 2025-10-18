@@ -6,7 +6,7 @@
 		// "outDir": "./dist",
 		"baseUrl": ".",
 		"paths": {
-			"@/*": ["apps/web/src/*", "packages/*/src/*"]
+			"@/*": ["apps/web/src/*"]
 		},
 
 		"module": "NodeNext",
