@@ -27,7 +27,14 @@ router.post('/products', async (req, res) => {
 		return res.status(400).json({ error: 'Missing or invalid product data' })
 	}
 
-	const newProduct = await db.createProduct({ name, price, rating, stock, category })
+	const newProduct = await db.createProduct({
+		name,
+		price,
+		rating,
+		stock,
+		category,
+		imageUrl: req.body.imageUrl || '',
+	})
 	if (!newProduct.success) {
 		return res.status(500).json({ error: newProduct.error || 'Failed to add product' })
 	}

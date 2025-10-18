@@ -1,7 +1,7 @@
+import { IDbResult, IProduct } from '@demo/share-types'
 import * as path from 'path'
 import * as fs from 'fs/promises'
 import * as fsSync from 'fs'
-import type { IDbResult, IProduct } from '@demo/share-types'
 
 class JsonDatabase {
 	private dataPath: string
@@ -91,28 +91,36 @@ class JsonDatabase {
 	 * Get product by ID
 	 */
 	async getProductById(id: number): Promise<IDbResult<IProduct>> {
-		const { data, success, error } = await this.readProducts()
-		if (!success || !data) {
+		try {
+			const { data, success, error } = await this.readProducts()
+			if (!success || !data) {
+				return {
+					success: false,
+					error: error || 'Unknown error',
+					message: 'Failed to retrieve product',
+				}
+			}
+
+			const product = data.find((p) => p.id === id)
+			if (!product) {
+				return {
+					success: false,
+					error: 'Not found',
+					message: `Product with ID ${id} not found`,
+				}
+			}
+
+			return {
+				success: true,
+				data: product,
+				message: 'Product retrieved successfully',
+			}
+		} catch (error) {
 			return {
 				success: false,
-				error: error || 'Unknown error',
+				error: error instanceof Error ? error.message : 'Unknown error',
 				message: 'Failed to retrieve product',
 			}
-		}
-
-		const product = data.find((p) => p.id === id)
-		if (!product) {
-			return {
-				success: false,
-				error: 'Not found',
-				message: `Product with ID ${id} not found`,
-			}
-		}
-
-		return {
-			success: true,
-			data: product,
-			message: 'Product retrieved successfully',
 		}
 	}
 
@@ -120,34 +128,42 @@ class JsonDatabase {
 	 * Create new product
 	 */
 	async createProduct(productData: Omit<IProduct, 'id'>): Promise<IDbResult<IProduct>> {
-		const result = await this.readProducts()
-		if (!result.success || !result.data) {
+		try {
+			const result = await this.readProducts()
+			if (!result.success || !result.data) {
+				return {
+					success: false,
+					error: result.error || 'Unknown error',
+					message: 'Failed to create product',
+				}
+			}
+
+			const products = result.data
+			const newId = products.length > 0 ? Math.max(...products.map((p) => p.id)) + 1 : 1
+			const newProduct: IProduct = { id: newId, ...productData }
+
+			products.push(newProduct)
+			const writeResult = await this.writeProducts(products)
+
+			if (!writeResult.success) {
+				return {
+					success: false,
+					error: writeResult.error,
+					message: 'Failed to save new product',
+				} as IDbResult<IProduct>
+			}
+
+			return {
+				success: true,
+				data: newProduct,
+				message: 'Product created successfully',
+			}
+		} catch (error) {
 			return {
 				success: false,
-				error: result.error || 'Unknown error',
+				error: error instanceof Error ? error.message : 'Unknown error',
 				message: 'Failed to create product',
 			}
-		}
-
-		const products = result.data
-		const newId = products.length > 0 ? Math.max(...products.map((p) => p.id)) + 1 : 1
-		const newProduct: IProduct = { id: newId, ...productData }
-
-		products.push(newProduct)
-		const writeResult = await this.writeProducts(products)
-
-		if (!writeResult.success) {
-			return {
-				success: false,
-				error: writeResult.error,
-				message: 'Failed to save new product',
-			} as IDbResult<IProduct>
-		}
-
-		return {
-			success: true,
-			data: newProduct,
-			message: 'Product created successfully',
 		}
 	}
 
@@ -158,50 +174,59 @@ class JsonDatabase {
 		id: number,
 		updateData: Partial<Omit<IProduct, 'id'>>,
 	): Promise<IDbResult<IProduct>> {
-		const result = await this.readProducts()
-		if (!result.success || !result.data) {
+		try {
+			const result = await this.readProducts()
+			if (!result.success || !result.data) {
+				return {
+					success: false,
+					error: result.error || 'Unknown error',
+					message: 'Failed to update product',
+				}
+			}
+
+			const products = result.data
+			const productIndex = products.findIndex((p) => p.id === id)
+
+			if (productIndex === -1) {
+				return {
+					success: false,
+					error: 'Not found',
+					message: `Product with ID ${id} not found`,
+				}
+			}
+
+			const existingProduct = products[productIndex]!
+			const updatedProduct: IProduct = {
+				id: existingProduct.id,
+				name: updateData.name ?? existingProduct.name,
+				category: updateData.category ?? existingProduct.category,
+				price: updateData.price ?? existingProduct.price,
+				stock: updateData.stock ?? existingProduct.stock,
+				rating: updateData.rating ?? existingProduct.rating,
+				imageUrl: updateData.imageUrl ?? existingProduct.imageUrl,
+			}
+			products[productIndex] = updatedProduct
+
+			const writeResult = await this.writeProducts(products)
+			if (!writeResult.success) {
+				return {
+					success: false,
+					error: writeResult.error || 'Unknown error',
+					message: 'Failed to save updated product',
+				}
+			}
+
+			return {
+				success: true,
+				data: updatedProduct,
+				message: 'Product updated successfully',
+			}
+		} catch (error) {
 			return {
 				success: false,
-				error: result.error || 'Unknown error',
+				error: error instanceof Error ? error.message : 'Unknown error',
 				message: 'Failed to update product',
 			}
-		}
-
-		const products = result.data
-		const productIndex = products.findIndex((p) => p.id === id)
-
-		if (productIndex === -1) {
-			return {
-				success: false,
-				error: 'Not found',
-				message: `Product with ID ${id} not found`,
-			}
-		}
-
-		const existingProduct = products[productIndex]!
-		const updatedProduct: IProduct = {
-			id: existingProduct.id,
-			name: updateData.name ?? existingProduct.name,
-			category: updateData.category ?? existingProduct.category,
-			price: updateData.price ?? existingProduct.price,
-			stock: updateData.stock ?? existingProduct.stock,
-			rating: updateData.rating ?? existingProduct.rating,
-		}
-		products[productIndex] = updatedProduct
-
-		const writeResult = await this.writeProducts(products)
-		if (!writeResult.success) {
-			return {
-				success: false,
-				error: writeResult.error || 'Unknown error',
-				message: 'Failed to save updated product',
-			}
-		}
-
-		return {
-			success: true,
-			data: updatedProduct,
-			message: 'Product updated successfully',
 		}
 	}
 
@@ -209,40 +234,48 @@ class JsonDatabase {
 	 * Delete product by ID
 	 */
 	async deleteProduct(id: number): Promise<IDbResult<void>> {
-		const result = await this.readProducts()
-		if (!result.success || !result.data) {
+		try {
+			const result = await this.readProducts()
+			if (!result.success || !result.data) {
+				return {
+					success: false,
+					error: result.error || 'Unknown error',
+					message: 'Failed to delete product',
+				}
+			}
+
+			const products: IProduct[] = result.data
+			const productIndex = products.findIndex((p) => p.id === id)
+
+			if (productIndex === -1) {
+				return {
+					success: false,
+					error: 'Not found',
+					message: `Product with ID ${id} not found`,
+				}
+			}
+
+			products.splice(productIndex, 1)
+			const writeResult = await this.writeProducts(products)
+
+			if (!writeResult.success) {
+				return {
+					success: false,
+					error: writeResult.error || 'Unknown error',
+					message: 'Failed to save after deletion',
+				}
+			}
+
+			return {
+				success: true,
+				message: 'Product deleted successfully',
+			}
+		} catch (error) {
 			return {
 				success: false,
-				error: result.error || 'Unknown error',
+				error: error instanceof Error ? error.message : 'Unknown error',
 				message: 'Failed to delete product',
 			}
-		}
-
-		const products: IProduct[] = result.data
-		const productIndex = products.findIndex((p) => p.id === id)
-
-		if (productIndex === -1) {
-			return {
-				success: false,
-				error: 'Not found',
-				message: `Product with ID ${id} not found`,
-			}
-		}
-
-		products.splice(productIndex, 1)
-		const writeResult = await this.writeProducts(products)
-
-		if (!writeResult.success) {
-			return {
-				success: false,
-				error: writeResult.error || 'Unknown error',
-				message: 'Failed to save after deletion',
-			}
-		}
-
-		return {
-			success: true,
-			message: 'Product deleted successfully',
 		}
 	}
 
@@ -250,23 +283,31 @@ class JsonDatabase {
 	 * Get products by category
 	 */
 	async getProductsByCategory(category: string): Promise<IDbResult<IProduct[]>> {
-		const result = await this.readProducts()
-		if (!result.success || !result.data) {
+		try {
+			const result = await this.readProducts()
+			if (!result.success || !result.data) {
+				return {
+					success: false,
+					error: result.error || 'Unknown error',
+					message: 'Failed to retrieve products by category',
+				}
+			}
+
+			const filteredProducts = result.data.filter(
+				(p) => p.category.toLowerCase() === category.toLowerCase(),
+			)
+
+			return {
+				success: true,
+				data: filteredProducts,
+				message: `Found ${filteredProducts.length} products in category: ${category}`,
+			}
+		} catch (error) {
 			return {
 				success: false,
-				error: result.error || 'Unknown error',
+				error: error instanceof Error ? error.message : 'Unknown error',
 				message: 'Failed to retrieve products by category',
 			}
-		}
-
-		const filteredProducts = result.data.filter(
-			(p) => p.category.toLowerCase() === category.toLowerCase(),
-		)
-
-		return {
-			success: true,
-			data: filteredProducts,
-			message: `Found ${filteredProducts.length} products in category: ${category}`,
 		}
 	}
 
@@ -274,23 +315,31 @@ class JsonDatabase {
 	 * Search products by name
 	 */
 	async searchProducts(query: string): Promise<IDbResult<IProduct[]>> {
-		const result = await this.readProducts()
-		if (!result.success || !result.data) {
+		try {
+			const result = await this.readProducts()
+			if (!result.success || !result.data) {
+				return {
+					success: false,
+					error: result.error || 'Unknown error',
+					message: 'Failed to search products',
+				}
+			}
+
+			const searchResults = result.data.filter((p) =>
+				p.name.toLowerCase().includes(query.toLowerCase()),
+			)
+
+			return {
+				success: true,
+				data: searchResults,
+				message: `Found ${searchResults.length} products matching: ${query}`,
+			}
+		} catch (error) {
 			return {
 				success: false,
-				error: result.error || 'Unknown error',
+				error: error instanceof Error ? error.message : 'Unknown error',
 				message: 'Failed to search products',
 			}
-		}
-
-		const searchResults = result.data.filter((p) =>
-			p.name.toLowerCase().includes(query.toLowerCase()),
-		)
-
-		return {
-			success: true,
-			data: searchResults,
-			message: `Found ${searchResults.length} products matching: ${query}`,
 		}
 	}
 

@@ -2,8 +2,8 @@
 	// Visit https://aka.ms/tsconfig to read more about this file
 	"compilerOptions": {
 		"target": "ESNext",
-		"module": "ESNext",
-		"moduleResolution": "Bundler",
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
 		"noEmit": true,
 		"noImplicitAny": true,
 		"allowJs": true,
