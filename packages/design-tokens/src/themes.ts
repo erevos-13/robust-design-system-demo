@@ -1,4 +1,4 @@
-import type { ITheme } from './layout.types.js'
+import type { ITheme } from './layout.types'
 
 // Default light theme
 export const lightTheme: ITheme = {

@@ -1,9 +1,4 @@
 import React, { useState } from 'react'
-import type {
-	ThemeMode,
-	IThemeProviderProps,
-} from '../../../../packages/design-tokens/src/layout.types.js'
-import { lightTheme, darkTheme } from '../../../../packages/design-tokens/src/themes.js'
 import { ThemeContext } from '../hooks'
 
 /**
