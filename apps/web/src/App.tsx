@@ -1,9 +1,9 @@
 import type { IProduct } from '@demo/share-types'
 import './App.css'
 import { RootLayout } from './components'
-import ListProducts from './components/ListProducts'
+import ListProducts from './features/product/ListProducts'
 import useFetch from './hooks/useFetch'
-import { Product } from './components/Product'
+import { Product } from './features/product/Product'
 
 // Main content component
 const MainContent = () => {
@@ -30,7 +30,18 @@ const MainContent = () => {
 			<ListProducts
 				items={data}
 				renderItem={(item) => {
-					return <Product {...item} />
+					return (
+						//We may want to use {...item} but in that case may we pass data that is not need to the Product component.
+						<Product
+							imageUrl={item.imageUrl}
+							category={item.category}
+							id={item.id}
+							name={item.name}
+							price={item.price}
+							stock={item.stock}
+							rating={item.rating}
+						/>
+					)
 				}}
 			/>
 		</div>

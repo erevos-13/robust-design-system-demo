@@ -1,17 +1,20 @@
-import React from 'react'
-import { ThemeProvider } from './ThemeProvider'
+import React, { type PropsWithChildren } from 'react'
+import { ThemeProvider } from '../providers/ThemeProvider'
 import { useTheme } from '../hooks'
 
-interface ISimpleLayoutProps {
-	children: React.ReactNode
+type ISimpleLayoutProps = {
 	initialTheme?: 'light' | 'dark'
+}
+
+type ILayoutInternalProps = {
+	children: React.ReactNode
 }
 
 /**
  * Simple layout component that provides theme management with a toggle button
  * and centers content in the viewport using Tailwind CSS
  */
-export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const Layout = ({ children }: ILayoutInternalProps) => {
 	const { theme, toggleTheme } = useTheme()
 
 	const customStyles = {
@@ -45,10 +48,10 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
  * Root layout component that combines ThemeProvider and Layout
  * This is the main component you should use to wrap your entire application
  */
-export const RootLayout: React.FC<ISimpleLayoutProps> = ({
+export const RootLayout = ({
 	children,
 	initialTheme = 'light',
-}) => {
+}: PropsWithChildren<ISimpleLayoutProps>) => {
 	return (
 		<ThemeProvider initialTheme={initialTheme}>
 			<Layout>{children}</Layout>

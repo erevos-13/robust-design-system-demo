@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ThemeContext } from '../hooks'
+import { ThemeContext } from '../hooks/index.js'
 import {
 	darkTheme,
 	lightTheme,
