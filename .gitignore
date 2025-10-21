@@ -162,3 +162,10 @@ apps/*/build/
 # Tools build outputs
 tools/*/dist/
 tools/*/build/
+
+
+# Ignore Cursor AI config and rules files
+.cursor/
+.cursor/rules
+.cursor/README.md
+
