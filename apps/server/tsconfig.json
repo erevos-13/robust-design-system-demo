@@ -6,7 +6,8 @@
 		"target": "ES2022",
 		"outDir": "./dist",
 		"rootDir": "./src",
-		"noFallthroughCasesInSwitch": true
+		"noFallthroughCasesInSwitch": true,
+		"allowImportingTsExtensions": true
 	},
 	"include": ["src/**/*"],
 	"exclude": ["node_modules", "dist"]

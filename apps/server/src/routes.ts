@@ -1,5 +1,6 @@
 import { Router } from 'express'
-import db from './db.js'
+import { ProductCreateSchema, ProductUpdateSchema } from '@demo/share-types'
+import db from './db.ts'
 
 const router: Router = Router()
 
@@ -22,19 +23,28 @@ router.get('/products/:id', async (req, res) => {
 })
 
 router.post('/products', async (req, res) => {
-	const { name, price, rating, stock, category } = req.body
-	if (!name || typeof price !== 'number' || !rating || !stock || !category) {
-		return res.status(400).json({ error: 'Missing or invalid product data' })
+	// Validate request body using Zod schema
+	const validation = ProductCreateSchema.safeParse(req.body)
+
+	if (!validation.success) {
+		return res.status(400).json({
+			error: 'Validation failed',
+			details: validation.error.format(),
+		})
 	}
 
+	// Use validated data (TypeScript now knows the exact shape)
+	const validatedData = validation.data
+
 	const newProduct = await db.createProduct({
-		name,
-		price,
-		rating,
-		stock,
-		category,
-		imageUrl: req.body.imageUrl || '',
+		name: validatedData.name,
+		price: validatedData.price,
+		rating: validatedData.rating,
+		stock: validatedData.stock,
+		category: validatedData.category,
+		imageUrl: validatedData.imageUrl || '',
 	})
+
 	if (!newProduct.success) {
 		return res.status(500).json({ error: newProduct.error || 'Failed to add product' })
 	}
@@ -47,8 +57,17 @@ router.patch('/products/:id', async (req, res) => {
 		return res.status(400).json({ error: 'Invalid product ID' })
 	}
 
-	const updateData = req.body
-	const updatedProduct = await db.updateProduct(id, updateData)
+	// Validate update data using Zod schema (all fields optional)
+	const validation = ProductUpdateSchema.safeParse(req.body)
+
+	if (!validation.success) {
+		return res.status(400).json({
+			error: 'Validation failed',
+			details: validation.error.format(),
+		})
+	}
+
+	const updatedProduct = await db.updateProduct(id, validation.data)
 	if (!updatedProduct.success) {
 		return res
 			.status(500)
