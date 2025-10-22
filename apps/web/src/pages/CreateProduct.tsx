@@ -1,19 +1,16 @@
-/**
- * CreateProduct Page
- *
- * Page component that wraps the CreateProductForm and demonstrates
- * how to integrate Zod-validated forms into the application layout.
- */
-
 import { CreateProductForm } from '../features/product/CreateProductForm'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/Buttons'
 
 /**
- * Page component for creating new products
+ * Page component for creating a new product.
  *
- * Provides navigation and layout for the product creation form
+ * Renders a form for product creation, handles navigation after successful creation,
+ * and displays helpful information about type safety and validation used in the app.
+ *
+ * @module pages/CreateProduct
  */
+
 export function CreateProduct() {
 	const navigate = useNavigate()
 
