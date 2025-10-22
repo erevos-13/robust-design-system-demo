@@ -17,6 +17,7 @@ type IButtonProps = React.ComponentPropsWithRef<'button'> & {
 	size?: 'small' | 'medium' | 'large'
 	disabled?: boolean
 	className?: string
+	type?: 'button' | 'submit' | 'reset'
 }
 
 /**
@@ -37,6 +38,7 @@ export const Button = ({
 	size = 'medium',
 	disabled = false,
 	className = '',
+	type = 'button',
 }: IButtonProps) => {
 	const baseStyles =
 		'font-medium rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2'
@@ -61,7 +63,7 @@ export const Button = ({
 	return (
 		<button
 			ref={ref}
-			type="button"
+			type={type}
 			className={buttonClasses}
 			onClick={onClick}
 			disabled={disabled}

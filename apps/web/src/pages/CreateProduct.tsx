@@ -49,7 +49,7 @@ export function CreateProduct() {
 					</h3>
 					<ul className="text-sm text-blue-800 dark:text-blue-300 space-y-1 list-disc list-inside">
 						<li>
-							The form uses{' '}
+							The form uses
 							<code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">Zod</code>{' '}
 							schemas shared with the backend
 						</li>

@@ -1,7 +1,7 @@
 import type { IProduct } from '@demo/share-types'
 import './App.css'
 import { RootLayout } from './components'
-import ListProducts from './features/product/ListProducts'
+import ListProducts from './pages/ListProducts'
 import useFetch from './hooks/useFetch'
 import { Product } from './features/product/Product'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'

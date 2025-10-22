@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { ProductCreateSchema, ProductUpdateSchema } from '@demo/share-types'
-import db from './db.ts'
+import db from './db.js'
 
 const router: Router = Router()
 

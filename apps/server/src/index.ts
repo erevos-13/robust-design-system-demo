@@ -1,4 +1,4 @@
-import app from './server.ts'
+import app from './server.js'
 
 async function main() {
 	app.listen(3000, () => {

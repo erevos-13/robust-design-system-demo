@@ -5,7 +5,9 @@
 		"outDir": "dist",
 		"rootDir": "src",
 		"declaration": true,
-		"allowImportingTsExtensions": false // Disable for builds
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"target": "ES2022"
 	},
 	"include": ["src"]
 }

@@ -1,7 +1,7 @@
 import express, { type Express } from 'express'
 import cors from 'cors'
-import router from './routes.ts'
-import db from './db.ts'
+import router from './routes.js'
+import db from './db.js'
 
 const app: Express = express()
 

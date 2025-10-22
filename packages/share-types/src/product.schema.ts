@@ -8,15 +8,18 @@
 import { z } from 'zod'
 
 /**
- * Zod schema for creating a new product
+ * @description
+ * Zod schema for creating a new product. This schema validates all required product fields to ensure data consistency
+ * and correctness across the application. It enforces the following constraints:
  *
- * Validates all required fields with appropriate constraints:
- * - name: minimum 3 characters
- * - category: minimum 2 characters
- * - price: must be positive number
- * - stock: must be non-negative integer
- * - rating: must be between 0 and 5
- * - imageUrl: optional valid URL or empty string
+ * - `name`: Must be a string with at least 3 characters.
+ * - `category`: Must be a string with at least 2 characters.
+ * - `price`: Must be a positive number.
+ * - `stock`: Must be a non-negative integer.
+ * - `rating`: Must be a number between 0 and 5, inclusive.
+ * - `imageUrl`: Optional. If provided, must be a valid URL or an empty string.
+ *
+ * @see ProductCreateSchema
  */
 export const ProductCreateSchema = z.object({
 	name: z.string().min(3, 'Name must be at least 3 characters'),
