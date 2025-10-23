@@ -1,10 +1,3 @@
-/**
- * Zod validation schemas for Product model
- *
- * These schemas provide runtime validation that complements TypeScript's compile-time type checking.
- * The schemas are shared between frontend and backend to ensure consistent validation across the application.
- */
-
 import { z } from 'zod'
 
 /**
