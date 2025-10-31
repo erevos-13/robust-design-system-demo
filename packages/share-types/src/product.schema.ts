@@ -40,20 +40,6 @@ export const ProductCreateSchema = z.object({
 export type ProductCreateInput = z.infer<typeof ProductCreateSchema>
 
 /**
- * Zod schema for a complete product (includes id)
- *
- * Extends ProductCreateSchema with an id field for existing products
- */
-export const ProductSchema = ProductCreateSchema.extend({
-	id: z.number().int().positive('Product ID must be a positive integer'),
-})
-
-/**
- * TypeScript type for a complete product
- */
-export type Product = z.infer<typeof ProductSchema>
-
-/**
  * Zod schema for updating an existing product
  *
  * All fields are optional to allow partial updates

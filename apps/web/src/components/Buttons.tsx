@@ -1,24 +1,24 @@
-import React from 'react'
+import type { IButtonProps } from '@demo/share-types'
 
-/**
- * Props for the Button component
- *
- * @property {string} title - The text to display on the button
- * @property {() => void} onClick - Callback function executed when the button is clicked
- * @property {'primary' | 'secondary' | 'outline'} [variant='primary'] - The visual style variant of the button
- * @property {'small' | 'medium' | 'large'} [size='medium'] - The size of the button
- * @property {boolean} [disabled=false] - Whether the button is disabled and cannot be interacted with
- * @property {string} [className=''] - Additional CSS classes to apply to the button for custom styling
- */
-type IButtonProps = React.ComponentPropsWithRef<'button'> & {
-	title: string
-	onClick: () => void
-	variant?: 'primary' | 'secondary' | 'outline'
-	size?: 'small' | 'medium' | 'large'
-	disabled?: boolean
-	className?: string
-	type?: 'button' | 'submit' | 'reset'
-}
+// /**
+//  * Props for the Button component
+//  *
+//  * @property {string} title - The text to display on the button
+//  * @property {() => void} onClick - Callback function executed when the button is clicked
+//  * @property {'primary' | 'secondary' | 'outline'} [variant='primary'] - The visual style variant of the button
+//  * @property {'small' | 'medium' | 'large'} [size='medium'] - The size of the button
+//  * @property {boolean} [disabled=false] - Whether the button is disabled and cannot be interacted with
+//  * @property {string} [className=''] - Additional CSS classes to apply to the button for custom styling
+//  */
+// type IButtonProps = React.ComponentPropsWithRef<'button'> & {
+// 	title: string
+// 	onClick: () => void
+// 	variant?: 'primary' | 'secondary' | 'outline'
+// 	size?: 'small' | 'medium' | 'large'
+// 	disabled?: boolean
+// 	className?: string
+// 	type?: 'button' | 'submit' | 'reset'
+// }
 
 /**
  * Button component that displays a title and handles click actions
@@ -39,7 +39,7 @@ export const Button = ({
 	disabled = false,
 	className = '',
 	type = 'button',
-}: IButtonProps) => {
+}: Readonly<IButtonProps>) => {
 	const baseStyles =
 		'font-medium rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2'
 

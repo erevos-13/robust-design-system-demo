@@ -97,5 +97,14 @@
     "stock": 0,
     "category": "test",
     "imageUrl": ""
+  },
+  {
+    "id": 12,
+    "name": "sdfsadf",
+    "price": 0.1,
+    "rating": 4.7,
+    "stock": 10,
+    "category": "dfsdf",
+    "imageUrl": ""
   }
 ]

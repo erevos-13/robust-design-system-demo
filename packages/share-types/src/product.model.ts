@@ -1,12 +1,15 @@
 /**
+/**
  * Represents a single product and its associated metadata.
  *
- * @property id - Unique identifier of the product.
- * @property name - Human-readable product name.
- * @property category - Category or classification the product belongs to.
- * @property price - Current selling price of the product.
- * @property stock - Quantity of the product available in inventory.
- * @property rating - Average customer rating for the product.
+ * @property id           - Unique identifier of the product.
+ * @property name         - Human-readable product name.
+ * @property category     - Category or classification the product belongs to.
+ * @property price        - Current selling price of the product.
+ * @property stock        - Quantity of the product available in inventory.
+ * @property rating       - Average customer rating for the product.
+ * @property imageUrl     - URL of the product image.
+ * @property description  - Optional. Textual description of the product.
  */
 export interface IProduct {
 	id: number
@@ -16,4 +19,5 @@ export interface IProduct {
 	stock: number
 	rating: number
 	imageUrl: string
+	description?: string
 }

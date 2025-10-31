@@ -7,7 +7,13 @@
  */
 
 import { useState, type FormEvent } from 'react'
-import { ProductCreateSchema, type ProductCreateInput } from '@demo/share-types'
+import { useMutation } from '@tanstack/react-query'
+import {
+	ProductCreateSchema,
+	type ProductCreateInput,
+	type IDbResult,
+	type IProduct,
+} from '@demo/share-types'
 import { Button } from '../../components/Buttons'
 import type { ZodFormattedError } from 'zod'
 
@@ -44,7 +50,59 @@ export function CreateProductForm({
 	const [errors, setErrors] = useState<ZodFormattedError<ProductCreateInput> | null>(null)
 	const [submitError, setSubmitError] = useState<string | null>(null)
 	const [submitSuccess, setSubmitSuccess] = useState<boolean>(false)
-	const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
+
+	/**
+	 * Mutation function for creating a product
+	 */
+	const createProductMutation = useMutation({
+		mutationFn: async (data: ProductCreateInput): Promise<IDbResult<IProduct>> => {
+			const response = await fetch('http://localhost:3000/api/products', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(data),
+			})
+
+			const result = (await response.json()) as IDbResult<IProduct> & {
+				details?: ZodFormattedError<ProductCreateInput>
+			}
+
+			if (!response.ok) {
+				// Server validation failed (defense in depth)
+				if (result.details) {
+					console.error('Server validation errors:', result.details)
+				}
+				throw new Error(result.error || 'Failed to create product')
+			}
+
+			return result
+		},
+		onSuccess: () => {
+			// Success!
+			setSubmitSuccess(true)
+			setErrors(null)
+			setSubmitError(null)
+
+			// Reset form
+			setFormData({
+				name: '',
+				category: '',
+				price: 0,
+				stock: 0,
+				rating: 0,
+				imageUrl: '',
+			})
+
+			if (onSuccess) {
+				onSuccess()
+			}
+		},
+		onError: (error: Error) => {
+			setSubmitError(error.message || 'Network error: Could not connect to server')
+			setSubmitSuccess(false)
+		},
+	})
 
 	/**
 	 * Handle form field changes with type safety
@@ -62,7 +120,6 @@ export function CreateProductForm({
 	 */
 	const handleSubmit = async (e: FormEvent) => {
 		e.preventDefault()
-		setIsSubmitting(true)
 		setSubmitError(null)
 		setSubmitSuccess(false)
 
@@ -71,52 +128,11 @@ export function CreateProductForm({
 
 		if (!validation.success) {
 			setErrors(validation.error.format())
-			setIsSubmitting(false)
 			return
 		}
 
-		try {
-			// Submit validated data to API
-			const response = await fetch('http://localhost:3000/api/products', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(validation.data),
-			})
-
-			const result = await response.json()
-
-			if (!response.ok) {
-				// Server validation failed (defense in depth)
-				setSubmitError(result.error || 'Failed to create product')
-				if (result.details) {
-					console.error('Server validation errors:', result.details)
-				}
-			} else {
-				// Success!
-				setSubmitSuccess(true)
-				// Reset form
-				setFormData({
-					name: '',
-					category: '',
-					price: 0,
-					stock: 0,
-					rating: 0,
-					imageUrl: '',
-				})
-				setErrors(null)
-
-				if (onSuccess) {
-					onSuccess()
-				}
-			}
-		} catch (error) {
-			setSubmitError('Network error: Could not connect to server')
-			console.error('Submit error:', error)
-		} finally {
-			setIsSubmitting(false)
-		}
+		// Submit validated data using TanStack Query mutation
+		createProductMutation.mutate(validation.data)
 	}
 
 	return (
@@ -251,9 +267,6 @@ export function CreateProductForm({
 				<input
 					type="number"
 					id="rating"
-					step="0.1"
-					min="0"
-					max="5"
 					value={formData.rating}
 					onChange={(e) => handleChange('rating', parseFloat(e.target.value) || 0)}
 					className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white"
@@ -292,11 +305,11 @@ export function CreateProductForm({
 			{/* Submit Button */}
 			<div className="flex gap-4">
 				<Button
-					title={isSubmitting ? 'Creating...' : 'Create Product'}
+					title={createProductMutation.isPending ? 'Creating...' : 'Create Product'}
 					onClick={() => {}}
 					variant="primary"
 					size="large"
-					disabled={isSubmitting}
+					disabled={createProductMutation.isPending}
 					type="submit"
 				/>
 			</div>

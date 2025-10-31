@@ -1,3 +1,4 @@
+import type { IDbResult } from '@demo/share-types'
 import { useCallback, useEffect, useState } from 'react'
 
 /**
@@ -71,7 +72,10 @@ export function useFetch<T>(
 			if (!response.ok) {
 				throw new Error(`Request failed with status ${response.status}`)
 			}
-			const { data } = await response.json()
+			const { data } = (await response.json()) as IDbResult<T>
+			if (!data) {
+				throw new Error('No data returned from server')
+			}
 			setData(data)
 		} catch (err) {
 			setError(err as Error)

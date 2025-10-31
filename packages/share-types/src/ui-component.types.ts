@@ -38,4 +38,5 @@ export interface IButtonProps {
 	disabled?: boolean
 	className?: string
 	ref?: React.Ref<HTMLButtonElement>
+	type?: 'button' | 'submit' | 'reset'
 }

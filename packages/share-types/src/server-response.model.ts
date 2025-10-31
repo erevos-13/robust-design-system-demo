@@ -8,7 +8,7 @@
  * @property error Optional error description provided when `success` is `false`.
  * @property message Human-readable message offering additional context about the operation result.
  */
-export interface IDbResult<T = unknown> {
+export interface IDbResult<T> {
 	success: boolean
 	data?: T
 	error?: string

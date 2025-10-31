@@ -1,7 +1,5 @@
 import type { IProduct } from '@demo/share-types'
 
-// FIXME: add a mapped type to make it read only because is readonly props
-
 export const Product = ({ name, category, price, stock, rating, imageUrl }: IProduct) => {
 	return (
 		<div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
