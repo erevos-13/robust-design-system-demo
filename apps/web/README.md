@@ -2,6 +2,42 @@
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
+## 🔒 Phantom Dependencies Prevention
+
+This project uses **pnpm**, which prevents phantom dependencies by design.
+
+### What are Phantom Dependencies?
+
+Phantom dependencies occur when you accidentally import a package that's not listed in your `package.json`, but works because it's a dependency of another package.
+
+**Example:**
+```typescript
+// ❌ This fails with pnpm (by design!)
+import { createBrowserHistory } from 'history'
+// Error: Cannot find module 'history'
+```
+
+Even though `react-router-dom` depends on `history`, you cannot import it directly because it's not in your `package.json`.
+
+### Benefits
+
+✅ **Explicit dependencies** - All imports must be declared  
+✅ **Reproducible builds** - No hidden dependencies  
+✅ **Better documentation** - Clear dependency tree  
+✅ **Safer updates** - No breaking changes from transitive deps
+
+### How to Add a Dependency
+
+If you need a package, add it explicitly:
+
+```bash
+pnpm add <package-name>
+```
+
+This ensures the dependency is tracked, versioned, and documented.
+
+See `src/demo-phantom-dependencies.tsx` for a live demonstration.
+
 Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh

@@ -38,15 +38,3 @@ export const ProductCreateSchema = z.object({
  * ensuring that type definitions and validation rules stay in sync.
  */
 export type ProductCreateInput = z.infer<typeof ProductCreateSchema>
-
-/**
- * Zod schema for updating an existing product
- *
- * All fields are optional to allow partial updates
- */
-export const ProductUpdateSchema = ProductCreateSchema.partial()
-
-/**
- * TypeScript type for product update operations
- */
-export type ProductUpdateInput = z.infer<typeof ProductUpdateSchema>

@@ -22,7 +22,11 @@ interface IListProductsProps {
  * @param renderItem - Custom render function for each product
  * @param className - Additional CSS classes
  */
-export function ListProducts({ items, renderItem, className = '' }: IListProductsProps) {
+export default function ListProducts({
+	items,
+	renderItem,
+	className = '',
+}: IListProductsProps) {
 	return (
 		<div className={`space-y-2 ${className}`}>
 			{items.map((item, index) => (
@@ -36,5 +40,3 @@ export function ListProducts({ items, renderItem, className = '' }: IListProduct
 		</div>
 	)
 }
-
-export default ListProducts
