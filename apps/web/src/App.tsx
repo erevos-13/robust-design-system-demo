@@ -7,16 +7,15 @@ import { Product } from './features/product/Product'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import { CreateProduct } from './pages/CreateProduct'
 import { Button } from './components/Buttons'
-import PhantomDependencyDemo from './demo-phantom-dependencies'
 
 /**
  * Note: This project uses pnpm which prevents phantom dependencies.
  * All imported packages must be explicitly listed in package.json.
- * 
+ *
  * Try importing 'history' (a transitive dependency of react-router-dom)
  * and watch it fail - this is a feature, not a bug! It ensures all
  * dependencies are explicit and tracked.
- * 
+ *
  * See demo-phantom-dependencies.tsx for more details.
  */
 
@@ -61,7 +60,6 @@ const ProductListPage = () => {
 	return (
 		<div className="p-4 flex flex-col gap-4 w-full">
 			{/* Phantom Dependencies Demo */}
-			<PhantomDependencyDemo />
 
 			{/* Header with Create button */}
 			<div className="flex justify-between items-center mb-4">
