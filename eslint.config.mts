@@ -30,7 +30,7 @@ export default tseslint.config(
 		},
 	},
 	{
-		ignores: ['**/node_modules/**', '**/assets/**/*', '**/build/**'],
+		ignores: ['**/node_modules/**', '**/assets/**/*', '**/build/**', '**/dist/**'],
 	},
 	{
 		files: ['**/tailwind.config.js'],
