@@ -25,11 +25,11 @@ export const ProductCreateSchema = z.object({
 		.max(5, 'Rating must be between 0 and 5'),
 	imageUrl: z
 		.string()
-		// .url('Must be a valid URL')
+		.url('Must be a valid URL')
 		//TODO display lint error
-		.refine((val) => val === '' || /^https?:\/\/.+/.test(val), {
-			message: 'Must be a valid URL',
-		})
+		// .refine((val) => val === '' || /^https?:\/\/.+/.test(val), {
+		// 	message: 'Must be a valid URL',
+		// })
 		.optional()
 		.or(z.literal(''))
 		.transform((val) => val || ''),
