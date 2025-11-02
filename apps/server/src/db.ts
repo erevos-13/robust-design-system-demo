@@ -12,6 +12,12 @@ class JsonDatabase {
 		this.dataPath = path.join(this.dataDir, 'products.json')
 		this.ensureDataDirectory()
 		this.initializeDatabase()
+			.then(() => {
+				console.log('✅ Database initialized')
+			})
+			.catch((error: unknown) => {
+				console.error('❌ Database initialization failed:', error)
+			})
 	}
 
 	/**
@@ -53,7 +59,7 @@ class JsonDatabase {
 	async readProducts(): Promise<IDbResult<IProduct[]>> {
 		try {
 			const data = await fs.readFile(this.dataPath, 'utf-8')
-			const products: IProduct[] = JSON.parse(data)
+			const products = JSON.parse(data) as IProduct[]
 			return {
 				success: true,
 				data: products,
@@ -195,7 +201,7 @@ class JsonDatabase {
 				}
 			}
 
-			const existingProduct = products[productIndex]!
+			const existingProduct = products[productIndex]
 			const updatedProduct: IProduct = {
 				id: existingProduct.id,
 				name: updateData.name ?? existingProduct.name,
